@@ -31,12 +31,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneral(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
-                "success", false,
-                "error", "INTERNAL_ERROR",
-                "message", "An unexpected error occurred",
-                "data", null,
-                "timestamp", Instant.now().toString()
-        ));
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", false);
+        response.put("error", "INTERNAL_ERROR");
+        response.put("message", "An unexpected error occurred");
+        response.put("timestamp", Instant.now().toString());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 }
