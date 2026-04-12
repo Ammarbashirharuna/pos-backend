@@ -35,16 +35,11 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build and test
+      - name: Build
         env:
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/pos_saas
           SPRING_DATASOURCE_USERNAME: coder
           SPRING_DATASOURCE_PASSWORD: admin123
-          APP_JWT_SECRET: dev-secret-key-minimum-64-characters-long-change-in-production
-        run: mvn clean verify -DskipTests
-
-      - name: Upload JAR
-        uses: actions/upload-artifact@v4
-        with:
-          name: pos-backend
-          path: target/*.jar
+          APP_JWT_SECRET: dev-secret-key-minimum-64-characters-long-change-in-production-ok
+          APP_JWT_REFRESH_SECRET: dev-refresh-secret-key-minimum-64-characters-long-ok
+        run: mvn clean package -DskipTests
