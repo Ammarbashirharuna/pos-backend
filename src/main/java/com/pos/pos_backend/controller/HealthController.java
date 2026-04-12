@@ -1,5 +1,6 @@
 package com.pos.pos_backend.controller;
 
+import com.pos.pos_backend.dto.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,11 +12,8 @@ import java.util.Map;
 public class HealthController {
 
     @GetMapping("/health")
-    public ResponseEntity<Map<String, String>> health() {
-        return ResponseEntity.ok(Map.of(
-                "status", "UP",
-                "service", "SaaS POS API",
-                "version", "2.0.0"
-        ));
+    public ResponseEntity<ApiResponse<Map<String, String>>> health() {
+        return ResponseEntity.ok(ApiResponse.ok("Service is running",
+                Map.of("service", "SaaS POS API", "version", "2.0.0")));
     }
 }
