@@ -1,6 +1,8 @@
 spring:
   application:
     name: pos-backend
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
 
   datasource:
     url: jdbc:postgresql://localhost:5432/pos_saas
@@ -8,16 +10,25 @@ spring:
     password: admin123
     driver-class-name: org.postgresql.Driver
 
-  jpa:
-    open-in-view: false
+jpa:
+  open-in-view: false
+  hibernate:
+    ddl-auto: none
+  show-sql: true
+  properties:
     hibernate:
-      ddl-auto: validate
-    show-sql: false
+      multiTenancy: SCHEMA
+      default_schema: public
 
   flyway:
     enabled: true
     baseline-on-migrate: true
+    out-of-order: false
     locations: classpath:db/migration
+    validate-on-migrate: true
+    clean-on-validation-error: false
+    repair-on-migrate: false
+    clean-disabled: false
 
   devtools:
     restart:
@@ -37,15 +48,15 @@ springdoc:
     path: /api-docs
 
 app:
+  frontend-url: http://localhost:3000
   jwt:
     secret: ${JWT_SECRET:dev-secret-key-minimum-64-characters-long-change-in-production-ok}
     refresh-secret: ${JWT_REFRESH_SECRET:dev-refresh-secret-key-minimum-64-characters-long-ok}
     expiration-ms: 900000
     refresh-expiration-ms: 604800000
   resend:
-    api-key: ${re_eGDY7spz_92WBgzVwYET3Xw5ayBJZq1Ze}
+    api-key: ${RESEND_API_KEY:re_eGDY7spz_92WBgzVwYET3Xw5ayBJZq1Ze}
     from-email: ${RESEND_FROM_EMAIL:ammarbashirharuna2020@gmail.com}
-  frontend-url: ${FRONTEND_URL:http://localhost:3000}
   paystack:
     secret-key: ${PAYSTACK_SECRET:sk_test_placeholder}
     webhook-secret: ${PAYSTACK_WEBHOOK_SECRET:webhook_placeholder}

@@ -18,30 +18,35 @@ public class JwtService {
 
     private final SecretKey accessKey;
     private final SecretKey refreshKey;
-    private final long accessExpirationMs;
-    private final long refreshExpirationMs;
+    private final long      accessExpirationMs;
+    private final long      refreshExpirationMs;
 
     public JwtService(
-            @Value("${app.jwt.secret}") String accessSecret,
-            @Value("${app.jwt.refresh-secret}") String refreshSecret,
-            @Value("${app.jwt.expiration-ms}") long accessExpirationMs,
-            @Value("${app.jwt.refresh-expiration-ms}") long refreshExpirationMs) {
-        this.accessKey = Keys.hmacShaKeyFor(accessSecret.getBytes(StandardCharsets.UTF_8));
-        this.refreshKey = Keys.hmacShaKeyFor(refreshSecret.getBytes(StandardCharsets.UTF_8));
-        this.accessExpirationMs = accessExpirationMs;
+            @Value("${app.jwt.secret}")               String accessSecret,
+            @Value("${app.jwt.refresh-secret}")       String refreshSecret,
+            @Value("${app.jwt.expiration-ms}")        long   accessExpirationMs,
+            @Value("${app.jwt.refresh-expiration-ms}")long   refreshExpirationMs) {
+        this.accessKey          = Keys.hmacShaKeyFor(accessSecret.getBytes(StandardCharsets.UTF_8));
+        this.refreshKey         = Keys.hmacShaKeyFor(refreshSecret.getBytes(StandardCharsets.UTF_8));
+        this.accessExpirationMs  = accessExpirationMs;
         this.refreshExpirationMs = refreshExpirationMs;
     }
 
-    // ── Access Token ─────────────────────────────────────────────────────────
+    // ── Access Token ──────────────────────────────────────────────────────────
 
-    public String generateAccessToken(Long userId, String email,
-                                      String role, Long tenantId) {
+    // updated — now accepts username and shopName so /me works correctly
+    public String generateAccessToken(Long userId, String email, String username,
+                                      String role, Long tenantId,
+                                      String schemaName, String shopName) {
         return Jwts.builder()
                 .subject(email)
                 .claims(Map.of(
-                        "userId",   userId,
-                        "role",     role,
-                        "tenantId", tenantId
+                        "userId",     userId,
+                        "username",   username,    // added
+                        "role",       role,
+                        "tenantId",   tenantId,
+                        "schemaName", schemaName,
+                        "shopName",   shopName     // added
                 ))
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + accessExpirationMs))
@@ -70,6 +75,23 @@ public class JwtService {
     public Long extractTenantIdFromAccessToken(String token) {
         return extractClaim(token, accessKey,
                 claims -> claims.get("tenantId", Long.class));
+    }
+
+    public String extractSchemaNameFromAccessToken(String token) {
+        return extractClaim(token, accessKey,
+                claims -> claims.get("schemaName", String.class));
+    }
+
+    // added — extracted from token so JwtFilter can populate CustomUserDetails
+    public String extractUsernameFromAccessToken(String token) {
+        return extractClaim(token, accessKey,
+                claims -> claims.get("username", String.class));
+    }
+
+    // added — extracted from token so JwtFilter can populate CustomUserDetails
+    public String extractShopNameFromAccessToken(String token) {
+        return extractClaim(token, accessKey,
+                claims -> claims.get("shopName", String.class));
     }
 
     // ── Refresh Token ─────────────────────────────────────────────────────────

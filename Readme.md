@@ -39,7 +39,7 @@ Production secrets are stored in Railway — never committed to git.
 - `main` — production only
 - `develop` — integration branch
 - `feature/module-name` — one branch per module
-
+h
 ## Modules
 14 modules — Auth, Dashboard, Products, Categories, POS, Sales,  
 Stock, Customers, Users, Reports, Settings, Registration, Billing, Super Admin

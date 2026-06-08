@@ -25,13 +25,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
 
-    /**
-     * Runs once per request — extracts JWT, validates it,
-     * and sets the authenticated user into Spring Security context.
-     *
-     * If no valid token → request continues unauthenticated.
-     * SecurityConfig then decides if the endpoint requires auth.
-     */
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
@@ -40,79 +33,70 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String token = extractTokenFromRequest(request);
 
-        // No token present — let the request continue.
-        // SecurityConfig will reject it if the endpoint requires auth.
         if (!StringUtils.hasText(token)) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // Token present but invalid — reject silently.
-        // Never reveal WHY the token failed (security best practice).
         if (!jwtService.validateAccessToken(token)) {
             filterChain.doFilter(request, response);
             return;
         }
 
         try {
-            // Extract claims from the token — no DB call needed.
-            // All user identity data lives inside the JWT payload.
-            Long userId   = jwtService.extractUserIdFromAccessToken(token);
-            Long tenantId = jwtService.extractTenantIdFromAccessToken(token);
-            String email  = jwtService.extractEmailFromAccessToken(token);
-            String role   = jwtService.extractRoleFromAccessToken(token);
+            Long   userId   = jwtService.extractUserIdFromAccessToken(token);
+            Long   tenantId = jwtService.extractTenantIdFromAccessToken(token);
+            String email    = jwtService.extractEmailFromAccessToken(token);
+            String role     = jwtService.extractRoleFromAccessToken(token);
+            String schema   = jwtService.extractSchemaNameFromAccessToken(token);
+            String username = jwtService.extractUsernameFromAccessToken(token); // added
+            String shopName = jwtService.extractShopNameFromAccessToken(token); // added
 
-            // Build the authenticated principal Spring Security understands.
-            // We attach userId and tenantId so any service can read them
-            // without hitting the database again.
+            // Set tenant schema in ThreadLocal so Hibernate routes to correct schema
+            TenantContext.setTenantSchema(schema);
+
             CustomUserDetails userDetails = CustomUserDetails.builder()
                     .userId(userId)
                     .tenantId(tenantId)
                     .email(email)
+                    .username(username)  // added
+                    .shopName(shopName)  // added
                     .role(role)
+                    .schemaName(schema)
                     .active(true)
                     .build();
 
-            // UsernamePasswordAuthenticationToken with 3 args = authenticated.
-            // With 2 args = not authenticated. Always use 3 args here.
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
                             userDetails,
-                            null, // credentials null — password not needed after login
+                            null,
                             List.of(new SimpleGrantedAuthority("ROLE_" + role))
                     );
 
-            // Attach request details (IP, session) to the auth object.
-            // Useful for audit logging later.
             authentication.setDetails(
                     new WebAuthenticationDetailsSource().buildDetails(request)
             );
 
-            // Store auth in SecurityContext — this is what makes the user
-            // "logged in" for the duration of this request.
-            // ThreadLocal storage — cleared automatically after response.
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
         } catch (Exception e) {
-            // Something unexpected happened during claim extraction.
-            // Clear context to be safe and let request continue unauthenticated.
             log.error("Failed to set user authentication: {}", e.getMessage());
             SecurityContextHolder.clearContext();
+            TenantContext.clear();
         }
 
-        filterChain.doFilter(request, response);
+        try {
+            filterChain.doFilter(request, response);
+        } finally {
+            // Always clear tenant context after request — prevents schema leaking
+            TenantContext.clear();
+        }
     }
 
-    /**
-     * Extracts Bearer token from Authorization header.
-     * Expected format: "Authorization: Bearer <token>"
-     */
     private String extractTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-
-        // StringUtils.hasText checks null, empty, and blank in one call
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7); // Remove "Bearer " prefix
+            return bearerToken.substring(7);
         }
         return null;
     }

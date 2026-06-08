@@ -15,12 +15,15 @@ import java.util.List;
 @AllArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
-    private final Long userId;
-    private final Long tenantId;
-    private final String email;
-    private final String password;
-    private final String role;
+    private final Long    userId;
+    private final Long    tenantId;
+    private final String  email;
+    private final String  username;    // added — used in /me response
+    private final String  shopName;    // added — used in /me response
+    private final String  password;
+    private final String  role;
     private final boolean active;
+    private final String  schemaName;
 
     // Spring Security reads this to check what the user is allowed to do.
     // We prefix with ROLE_ because Spring Security expects that convention.
@@ -41,20 +44,9 @@ public class CustomUserDetails implements UserDetails {
         return email;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+    @Override public boolean isAccountNonExpired()     { return true; }
+    @Override public boolean isAccountNonLocked()      { return true; }
+    @Override public boolean isCredentialsNonExpired() { return true; }
 
     // Maps directly to our is_active column in the users table.
     // If admin deactivates a user, Spring Security blocks them automatically.
