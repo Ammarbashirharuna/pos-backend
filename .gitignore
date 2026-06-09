@@ -22,8 +22,8 @@ logs/
 # Environment — NEVER commit these
 .env
 .env.local
-application-prod.yml
-application-local.yml
+#application-prod.yml
+#application-local.yml
 
 # OS
 .DS_Store

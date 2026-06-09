@@ -1,0 +1,81 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5          # Render free tier is limited, keep this low
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none                # Flyway handles migrations, never let Hibernate touch schema
+    show-sql: false                 # Never true in production
+    properties:
+      hibernate:
+        multiTenancy: SCHEMA
+        default_schema: public
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    out-of-order: false
+    locations: classpath:db/migration
+    validate-on-migrate: true
+    clean-on-validation-error: false
+    repair-on-migrate: false
+    clean-disabled: true            # NEVER allow clean in production
+
+  devtools:
+    restart:
+      enabled: false                # Must be off in production
+    livereload:
+      enabled: false
+
+server:
+  port: ${PORT:8080}                # Render injects PORT automatically
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+
+app:
+  frontend-url: ${FRONTEND_URL}
+  jwt:
+    secret: ${JWT_SECRET}
+    refresh-secret: ${JWT_REFRESH_SECRET}
+    expiration-ms: 900000
+    refresh-expiration-ms: 604800000
+  resend:
+    api-key: ${RESEND_API_KEY}
+    from-email: ${RESEND_FROM_EMAIL}
+  paystack:
+    secret-key: ${PAYSTACK_SECRET}
+    webhook-secret: ${PAYSTACK_WEBHOOK_SECRET}
+  cloudflare:
+    r2-access-key: ${R2_ACCESS_KEY}
+    r2-secret-key: ${R2_SECRET_KEY}
+    r2-bucket: ${R2_BUCKET}
+    r2-endpoint: ${R2_ENDPOINT}
+
+logging:
+  level:
+    com.pos.pos_backend: INFO       # DEBUG is too noisy in production
+    org.springframework.security: WARN
+    org.flywaydb: INFO
