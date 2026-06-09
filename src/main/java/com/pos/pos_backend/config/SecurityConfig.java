@@ -37,6 +37,7 @@ public class SecurityConfig {
 
     private static final String[] PUBLIC_URLS = {
             "/api/health",
+            "/actuator/health",          // ← add this
             "/api/auth/login",
             "/api/auth/logout",
             "/api/auth/refresh",
@@ -51,7 +52,6 @@ public class SecurityConfig {
             "/v3/api-docs/**",
             "/webjars/**"
     };
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -80,7 +80,7 @@ public class SecurityConfig {
         config.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", config);
+        source.registerCorsConfiguration("/**", config);  // was /api/**
         return source;
     }
 
