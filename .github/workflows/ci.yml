@@ -20,26 +20,44 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd="pg_isready -U coder -d pos_saas"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+          --health-start-period=30s
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Java 17
+      - name: Set up Java 21
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
           cache: maven
 
-      - name: Build
+      - name: Wait for PostgreSQL
+        run: |
+          until pg_isready -h localhost -p 5432 -U coder; do
+            echo "Waiting for postgres..."
+            sleep 2
+          done
+
+      - name: Build and Test
         env:
+          SPRING_PROFILES_ACTIVE: dev
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/pos_saas
           SPRING_DATASOURCE_USERNAME: coder
           SPRING_DATASOURCE_PASSWORD: admin123
-          APP_JWT_SECRET: dev-secret-key-minimum-64-characters-long-change-in-production-ok
-          APP_JWT_REFRESH_SECRET: dev-refresh-secret-key-minimum-64-characters-long-ok
-        run: mvn clean package -DskipTests
+          JWT_SECRET: dev-secret-key-minimum-64-characters-long-change-in-production-ok-yes
+          JWT_REFRESH_SECRET: dev-refresh-secret-key-minimum-64-characters-long-ok-yes-ok
+          FRONTEND_URL: http://localhost:3000
+          RESEND_API_KEY: re_placeholder
+          RESEND_FROM_EMAIL: test@test.com
+          PAYSTACK_SECRET: sk_test_placeholder
+          PAYSTACK_WEBHOOK_SECRET: webhook_placeholder
+          R2_ACCESS_KEY: placeholder
+          R2_SECRET_KEY: placeholder
+          R2_BUCKET: pos-files
+          R2_ENDPOINT: placeholder
+        run: mvn clean package -DskipTests -B
