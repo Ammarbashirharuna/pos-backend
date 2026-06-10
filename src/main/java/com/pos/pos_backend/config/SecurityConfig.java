@@ -37,7 +37,8 @@ public class SecurityConfig {
 
     private static final String[] PUBLIC_URLS = {
             "/api/health",
-            "/actuator/health",          // ← add this
+            "/actuator/health",
+            "/api/seed",
             "/api/auth/login",
             "/api/auth/logout",
             "/api/auth/refresh",
