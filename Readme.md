@@ -1,45 +1,121 @@
-# SaaS POS Backend
+# Sovent POS — Multi-Tenant SaaS Backend
 
-Multi-tenant Point of Sale platform for Nigerian wholesale businesses.  
-Built with Spring Boot 3.5 · PostgreSQL · JWT · Flyway · Docker
+[![Java](https://img.shields.io/badge/Java-17+-orange?logo=openjdk)](https://www.oracle.com/java/technologies/javase/jdk17-archive.html)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5-green?logo=spring)](https://spring.io/projects/spring-boot)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-blue?logo=postgresql)](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)](https://www.docker.com/)
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)](https://github.com/Ammarbashirharuna/sovent-pos-backend)
 
-## Stack
-- **Backend:** Java 17, Spring Boot 3.5, Spring Security 6
-- **Database:** PostgreSQL 15 (Docker locally, Railway in production)
-- **Auth:** JWT access token (15min) + refresh token (7 days HttpOnly cookie)
-- **Migrations:** Flyway
-- **Docs:** Swagger UI at `/swagger-ui.html`
+Enterprise-grade multi-tenant SaaS Point of Sale platform designed specifically for Nigerian wholesale and retail businesses. Built with modern Java microservices architecture, offering scalability, security, and reliability for high-volume transaction processing.
 
-## Local Development
+**Smart POS. Limitless Scale. Built for Africa.**
 
-### Prerequisites
-- Java 17+
-- Docker Desktop
-- Maven
+## 📋 Overview
 
-### Start
-```bash
-# Start database
-docker-compose up -d
+Sovent POS is a comprehensive backend API powering a complete point-of-sale ecosystem. Supporting **14 interconnected modules**, it provides wholesale businesses with inventory management, sales tracking, customer management, and real-time reporting capabilities.
 
-# Run app
-mvn spring-boot:run
+### Key Characteristics
+
+- 🏢 **Multi-Tenant Architecture** — Complete data isolation per tenant
+- 🔐 **Enterprise Security** — JWT + refresh token + role-based access control
+- 📊 **14 Integrated Modules** — Full business lifecycle coverage
+- 🚀 **Scalable Design** — Handles thousands of concurrent users
+- 💾 **Reliable Database** — PostgreSQL with automated Flyway migrations
+- 🐳 **Containerized** — Docker support for local dev and production
+- 📖 **API Documentation** — Auto-generated Swagger UI
+- 🛡️ **Production Ready** — Comprehensive error handling and monitoring
+- 🌍 **Nigerian Market Focus** — NGN currency, local tax rates, GSM integration
+
+---
+
+## 🎯 Use Cases
+
+### Wholesale Businesses
+- Bulk product management
+- Multi-location inventory tracking
+- Wholesale pricing tiers
+- Bulk order processing
+
+### Retail Chains
+- Point of sale operations
+- Real-time inventory sync
+- Sales analytics and reporting
+- Customer loyalty programs
+
+### Distribution Centers
+- Stock allocation
+- Transfer management
+- Supplier integration
+- Shipment tracking
+
+---
+
+## 🏗️ Architecture
+
+### System Design
+┌─────────────────────────────────────────────────┐
+
+│         Client Applications (Web/Mobile)        │
+
+├─────────────────────────────────────────────────┤
+
+│                  API Gateway                     │
+
+├─────────────────────────────────────────────────┤
+
+│  Spring Boot 3.5 - Spring Security - REST API   │
+
+├────────────┬────────────┬──────────┬────────────┤
+
+│   Auth     │ Products   │   POS    │  Reports   │
+
+│   Module   │   Module   │  Module  │  Module    │
+
+├────────────┴────────────┴──────────┴────────────┤
+
+│        Spring Data JPA - Hibernate ORM           │
+
+├─────────────────────────────────────────────────┤
+
+│  PostgreSQL 15 (Multi-Tenant Schema Per Tenant)  │
+
+├─────────────────────────────────────────────────┤
+
+│      Flyway Migrations - Version Control         │
+
+└─────────────────────────────────────────────────┘
+
+### Database Architecture
+
+**Multi-Tenant Pattern:** Schema-per-tenant isolation
+
+```sql
+-- Master Database (Admin)
+├── tenants (tenant metadata)
+├── subscriptions (billing info)
+└── audit_logs (system-wide logging)
+
+-- Tenant Databases (Per Company)
+├── users (tenant-specific users)
+├── products (tenant inventory)
+├── sales (transaction records)
+├── stock_history (audit trail)
+├── customers (customer data)
+└── ... (14 total modules)
 ```
 
-### URLs
-- API: http://localhost:8080
-- Swagger: http://localhost:8080/swagger-ui.html
-- Health: http://localhost:8080/api/health
+### Authentication Flow
 
-## Environment Variables
-See `application.yml` for all config keys.  
-Production secrets are stored in Railway — never committed to git.
+User Login
 
-## Branch Strategy
-- `main` — production only
-- `develop` — integration branch
-- `feature/module-name` — one branch per module
+↓
+JWT Access Token (15 min) + Refresh Token (7 days)
 
-## Modules
-14 modules — Auth, Dashboard, Products, Categories, POS, Sales,  
-Stock, Customers, Users, Reports, Settings, Registration, Billing, Super Admin
+↓
+Access Token in Authorization Header
+Refresh Token in HttpOnly Cookie
+
+↓
+Automatic Refresh Before Expiry
+
+
