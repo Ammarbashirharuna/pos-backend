@@ -119,3 +119,28 @@ Refresh Token in HttpOnly Cookie
 Automatic Refresh Before Expiry
 
 
+
+## 📄 License
+
+This software is **proprietary and confidential**. 
+
+All rights reserved © 2024 **Appsware Digital Solutions LTD**
+
+### Usage Restrictions
+
+- ❌ NOT open source
+- ❌ NOT for public use or distribution
+- ❌ NOT for modification or derivative works
+- ❌ NOT for resale or commercialization
+- ⚠️ Subject to strict licensing terms
+
+### Authorized Use Only
+
+This software is provided solely to authorized customers under license agreement.
+Unauthorized use, copying, modification, or distribution is strictly prohibited.
+
+**For licensing inquiries:** [contact@appsware.ng](mailto:contact@appsware.ng)
+
+See [LICENSE](LICENSE) file for complete terms and conditions.
+
+
