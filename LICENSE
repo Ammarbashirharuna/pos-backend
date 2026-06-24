@@ -1,0 +1,267 @@
+PROPRIETARY SOFTWARE LICENSE AGREEMENT
+
+Copyright © 2024 Appsware Digital Solutions LTD
+All Rights Reserved
+
+This Software is proprietary and confidential.
+
+================================================================================
+GRANT OF LICENSE
+================================================================================
+
+Appsware Digital Solutions LTD ("Company") grants You a limited, non-exclusive,
+non-transferable, revocable license to use this software ("Software") solely
+for authorized business purposes within Your organization, subject to the
+terms and conditions of this Agreement.
+
+The Software is licensed, not sold.
+
+================================================================================
+RESTRICTIONS
+================================================================================
+
+You may NOT:
+
+1. COPY OR REPRODUCE
+   - Make any copies of the Software without written permission
+   - Includes source code, documentation, and binaries
+   - Backup copies allowed only for disaster recovery purposes
+
+2. DISTRIBUTE OR TRANSFER
+   - Share, sell, lease, or transfer the Software to any third party
+   - Distribute copies to contractors or consultants without written consent
+   - Publish or make available to the public in any form
+
+3. MODIFY OR CREATE DERIVATIVES
+   - Modify, adapt, translate, or create derivative works
+   - Reverse engineer, decompile, or disassemble the Software
+   - Attempt to discover the source code or algorithms
+
+4. SUBLICENSE OR RESELL
+   - Grant sublicenses to others
+   - Resell or commercialize the Software
+   - Include the Software in other commercial offerings
+
+5. REMOVE OR ALTER NOTICES
+   - Remove or modify copyright notices, proprietary marks, or disclaimers
+   - Alter any identification or licensing information
+
+6. USE OUTSIDE SCOPE
+   - Use for purposes other than authorized business operations
+   - Host publicly or make available over the internet without permission
+   - Use in competing products or services
+
+================================================================================
+OWNERSHIP AND INTELLECTUAL PROPERTY
+================================================================================
+
+All right, title, and interest in and to the Software, including all copies,
+modifications, and derivative works, are and shall remain the exclusive
+property of Appsware Digital Solutions LTD.
+
+This License does not convey any ownership rights in the Software.
+
+All source code, documentation, algorithms, and improvements are the sole
+property of Appsware Digital Solutions LTD.
+
+================================================================================
+UPDATES AND MODIFICATIONS
+================================================================================
+
+Appsware Digital Solutions LTD may provide updates, patches, or modifications
+to the Software at its sole discretion. Such updates are subject to this
+License and do not extend, expand, or alter the scope of use.
+
+================================================================================
+CONFIDENTIALITY
+================================================================================
+
+The Software contains confidential trade secrets and proprietary information.
+You agree to:
+
+1. Maintain the confidentiality of the Software
+2. Limit access to employees with a need-to-know basis
+3. Use the same level of care as You use for Your own confidential information
+4. Protect the Software from unauthorized access
+
+Failure to maintain confidentiality constitutes a material breach.
+
+================================================================================
+THIRD-PARTY COMPONENTS
+================================================================================
+
+The Software may contain open-source and third-party components. Such
+components are governed by their respective licenses:
+
+- Spring Framework: Apache License 2.0
+- PostgreSQL: PostgreSQL License
+- Docker: Community Edition License
+- Other components: As identified in source code
+
+Use of third-party components is permitted only as part of the integrated
+Software and in accordance with their respective licenses.
+
+================================================================================
+WARRANTY DISCLAIMER
+================================================================================
+
+THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO:
+
+- IMPLIED WARRANTIES OF MERCHANTABILITY
+- FITNESS FOR A PARTICULAR PURPOSE
+- NON-INFRINGEMENT
+- TITLE
+- QUIET ENJOYMENT
+
+APPSWARE DIGITAL SOLUTIONS LTD DOES NOT WARRANT THAT THE SOFTWARE WILL:
+
+- Meet Your requirements
+- Operate uninterrupted or error-free
+- Be compatible with all systems or environments
+- Work with third-party applications
+
+================================================================================
+LIMITATION OF LIABILITY
+================================================================================
+
+IN NO EVENT SHALL APPSWARE DIGITAL SOLUTIONS LTD BE LIABLE FOR:
+
+- Loss of profits, revenue, or business opportunities
+- Loss of data or data corruption
+- Loss of goodwill or reputation
+- Indirect, incidental, special, consequential, or punitive damages
+- Cost of substitute goods or services
+
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT PAID FOR THE LICENSE, IF ANY.
+
+SOME JURISDICTIONS DO NOT ALLOW LIABILITY LIMITATIONS, SO THIS MAY NOT APPLY.
+
+================================================================================
+TERM AND TERMINATION
+================================================================================
+
+LICENSE TERM
+- This License is granted for the duration of Your subscription or agreement
+- Continues until terminated by either party
+- Perpetual if no subscription term specified (at Company's discretion)
+
+TERMINATION
+- Appsware may terminate this License immediately if You breach any term
+- Upon termination, You must cease all use and destroy all copies
+- Provisions regarding IP ownership survive termination
+
+EFFECT OF TERMINATION
+- All rights granted hereunder immediately cease
+- You lose access to the Software
+- Backup of Your data provided for 30 days after termination
+- Outstanding payment obligations survive termination
+
+================================================================================
+EXPORT COMPLIANCE
+================================================================================
+
+You acknowledge that the Software may be subject to export control laws,
+including the U.S. Export Administration Regulations.
+
+You agree NOT to export or transfer the Software to prohibited countries or
+parties, including:
+
+- Countries under U.S. embargo
+- Restricted end-users
+- Prohibited end-uses
+
+You are responsible for complying with all applicable export laws and
+regulations.
+
+================================================================================
+INDEMNIFICATION
+================================================================================
+
+You agree to indemnify, defend, and hold harmless Appsware Digital Solutions
+LTD and its officers, directors, employees, and agents from any claims,
+damages, or liabilities arising from:
+
+- Your use of the Software
+- Violation of this License
+- Infringement of third-party rights by Your use
+- Unauthorized modifications or combinations with other software
+
+================================================================================
+GOVERNING LAW AND JURISDICTION
+================================================================================
+
+This License shall be governed by and construed in accordance with the laws
+of Nigeria, without regard to conflicts of law principles.
+
+Exclusive jurisdiction and venue for any dispute shall be in the courts
+located in Kano, Nigeria.
+
+Both parties consent to the jurisdiction and venue of such courts.
+
+================================================================================
+ENTIRE AGREEMENT
+================================================================================
+
+This License constitutes the entire agreement between You and Appsware
+Digital Solutions LTD regarding the Software and supersedes all prior or
+contemporaneous agreements, understandings, and communications.
+
+No modification, amendment, or waiver of any provision is valid unless in
+writing and signed by an authorized representative of Appsware Digital
+Solutions LTD.
+
+If any provision is found invalid or unenforceable, the remaining provisions
+shall continue in full force and effect.
+
+================================================================================
+SEVERABILITY
+================================================================================
+
+If any provision of this License is held to be invalid, illegal, or
+unenforceable, such provision shall be modified to the minimum extent
+necessary to make it valid, or if that is not possible, shall be severed.
+
+The remaining provisions shall remain in full force and effect.
+
+================================================================================
+WAIVER
+================================================================================
+
+Failure by Appsware Digital Solutions LTD to enforce any provision of this
+License does not constitute a waiver of that provision or any other provision.
+
+A waiver must be in writing and signed by an authorized representative.
+
+================================================================================
+CONTACT INFORMATION
+================================================================================
+
+For licensing questions or to request authorization for use beyond the scope
+of this License, contact:
+
+Appsware Digital Solutions LTD
+Kano, Nigeria
+Email: contact@appsware.ng
+Website: https://appsware.ng
+
+================================================================================
+ACKNOWLEDGMENT
+================================================================================
+
+BY INSTALLING, COPYING, DOWNLOADING, OR USING THE SOFTWARE, YOU ACKNOWLEDGE
+THAT YOU HAVE READ THIS AGREEMENT, UNDERSTAND IT, AND AGREE TO BE BOUND BY
+ITS TERMS.
+
+IF YOU DO NOT AGREE TO THESE TERMS, DO NOT INSTALL, COPY, DOWNLOAD, OR USE
+THE SOFTWARE.
+
+================================================================================
+
+APPSWARE DIGITAL SOLUTIONS LTD
+Kano, Nigeria
+
+Last Updated: March 30, 2024
+Version: 1.0
